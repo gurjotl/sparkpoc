@@ -33,7 +33,8 @@ public class Main {
         //Problem 3
         JavaRDD<String> textFile3 = sc.textFile("src/main/resources/airports.text")
                 .filter(line -> line.contains("United States"))
-                .flatMap(s -> Arrays.asList(s.split("\n")).iterator());
-        textFile3.foreach(p -> System.out.println("\"" + p.split("\"")[1] + "\", " + p.split("\"")[3] + "\""));
+                .flatMap(s -> Arrays.asList(s.split("\n")).iterator())
+                .map(p -> "\"" + p.split("\"")[1] + "\", \"" + p.split("\"")[3] + "\"\n");
+        textFile3.saveAsTextFile("/tmp/airports_in_usa.text");
     }
 }
